@@ -1,14 +1,20 @@
-#include <stdio.h>
-#include <string.h>
+#include "socket.h"
 
-int main(int argc, char **argv)
+int main()
 {
-	if(argc > 1 && strcmp(argv[1], "-advice") == 0)
-	{
-		printf("Don't panic !\n");
-		return 42;
-	}
+	int socket_client;
+	int s = creer_serveur(8080);
 
-	printf("Need an advice ?\n");
+	while( 1 ) {
+
+		socket_client = accept( s, NULL, NULL );
+		if( socket_client == -1 ) {
+			perror("accept");
+			return -1;
+		}
+
+		const char *message_bienvenue = " Bienvenue sur mon serveur\n";
+		write( socket_client, message_bienvenue, strlen(message_bienvenue));
+	}
 	return 0;
 }
