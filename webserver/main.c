@@ -12,7 +12,7 @@ int main()
 			perror("accept");
 			return -1;
 		}
-
+		sleep(1);
 		const char *message_bienvenue = "Bienvenue sur mon serveur\n";
 		write( socket_client, message_bienvenue, strlen(message_bienvenue));
 
