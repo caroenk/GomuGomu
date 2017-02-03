@@ -7,7 +7,10 @@
 #include <string.h>
 #include <netinet/in.h>
 #include <netinet/ip.h>
+#include <fcntl.h>
 #include <unistd.h>
+#include <stdlib.h>
+
 
 int creer_serveur(int port);
 
