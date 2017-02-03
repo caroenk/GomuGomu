@@ -16,11 +16,17 @@ int main()
 		const char *message_bienvenue = "Bienvenue sur mon serveur\n";
 		write( socket_client, message_bienvenue, strlen(message_bienvenue));
 
-		char *p = malloc(1000);
+		char p[1000];
 
-		while( read(socket_client, p , strlen(p))){
+		while(1){
 
-			write( socket_client , p , strlen(p) );
+			int r = read(socket_client, p, 1000);
+
+			if(r != 0) printf("%d\n",r);
+
+			int w = write(socket_client, p, r);
+
+			if(w != 0) printf("%d\n",w);
 		}
 	}
 	return 0;
