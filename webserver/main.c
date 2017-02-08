@@ -32,6 +32,9 @@ int main()
 		}
 		else if(pid == 0)
 		{
+			printf("fils ; %d\n",getpid());
+			printf("mon pere ; %d\n",getppid());
+			
 			sleep(1);
 			const char *message_bienvenue = "Bienvenue sur mon serveur\n";
 			write( socket_client, message_bienvenue, strlen(message_bienvenue));
