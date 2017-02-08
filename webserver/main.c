@@ -1,6 +1,7 @@
 #include "socket.h"
 
 void initialiser_signaux();
+void traitement_signal(int sig);
 
 int main()
 {
@@ -54,10 +55,28 @@ int main()
 	return 0;
 }
 
+void traitement_signal(int sig)
+{
+	printf("Signal %d reçu\n", sig);
+}
+
 void initialiser_signaux()
+{
+	struct sigaction sa;
+
+	sa.sa_handler = traitement_signal;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	if(sigaction(SIGCHLD, &sa, NULL) == -1)
+	{
+		perror("sigaction(SIGCHLD)");
+	}
+}
+
+/*void initialiser_signaux()
 {
 	if(signal(SIGPIPE, SIG_IGN) == SIG_ERR)
 	{
 		perror("signal");
 	}
-}
+}*/
