@@ -10,7 +10,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
-
+#include <signal.h>
 
 int creer_serveur(int port);
 

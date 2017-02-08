@@ -1,9 +1,13 @@
 #include "socket.h"
 
+void initialiser_signaux();
+
 int main()
 {
 	int socket_client;
 	int s = creer_serveur(8080);
+
+	initialiser_signaux();
 
 	while( 1 ) {
 
@@ -30,4 +34,12 @@ int main()
 		}
 	}
 	return 0;
+}
+
+void initialiser_signaux()
+{
+	if(signal(SIGPIPE, SIG_IGN) == SIG_ERR)
+	{
+		perror("signal");
+	}
 }
