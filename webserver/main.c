@@ -10,7 +10,6 @@ int main()
 
 	initialiser_signaux();
 
-
 	while(1) {
 
 		socket_client = accept( s, NULL, NULL );
@@ -45,6 +44,8 @@ int main()
 
 				int r = read(socket_client, p, 1000);
 
+				if(r <= 0) exit(0);
+
 				if(r != 0) printf("%d\n",r);
 	
 				int w = write(socket_client, p, r);
@@ -61,6 +62,7 @@ int main()
 void traitement_signal(int sig)
 {
 	printf("Signal %d reçu\n", sig);
+	while(waitpid(-1, NULL, WNOHANG) > 0);
 }
 
 void initialiser_signaux()
@@ -74,12 +76,8 @@ void initialiser_signaux()
 	{
 		perror("sigaction(SIGCHLD)");
 	}
-}
-
-/*void initialiser_signaux()
-{
 	if(signal(SIGPIPE, SIG_IGN) == SIG_ERR)
 	{
 		perror("signal");
 	}
-}*/
+}
