@@ -39,22 +39,20 @@ int main()
 			write( socket_client, message_bienvenue, strlen(message_bienvenue));
 
 			char p[1000];
+			FILE *file;
 	
 			while(1){
 
 				int r = read(socket_client, p, 1000);
-
 				if(r <= 0) exit(0);
 
-				if(r != 0) printf("%d\n",r);
-	
-				int w = write(socket_client, p, r);
+				file = fdopen( socket_client , "w+");
+				fgets( p, 10, file );
 
-				if(w != 0) printf("%d\n",w);
+				fprintf(file , "<GomuGomu> %s", p );
+				fclose(file);
 			}
 		}
-
-
 	}
 	return 0;
 }
