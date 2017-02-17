@@ -40,18 +40,20 @@ int main()
 
 			char p[1000];
 			FILE *file;
+			file = fdopen( socket_client , "w+");
 	
 			while(1){
 
-				int r = read(socket_client, p, 1000);
-				if(r <= 0) exit(0);
+				if(fgets( p, sizeof(p), file ) != NULL)
+				{
+					fprintf(file , "<GomuGomu> %s", p );
+				}
 
-				file = fdopen( socket_client , "w+");
-				fgets( p, 10, file );
-
-				fprintf(file , "<GomuGomu> %s", p );
-				fclose(file);
 			}
+
+			fclose(file);
+			printf("probleme\n");
+			
 		}
 	}
 	return 0;
